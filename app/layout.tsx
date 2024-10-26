@@ -1,11 +1,12 @@
 "use client";
 import localFont from "next/font/local";
 import "./globals.css";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "material-symbols";
 import "react-datepicker/dist/react-datepicker.css";
 import { Toaster } from "react-hot-toast";
+import { Spinner } from "@/lib/components/Spinner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,7 @@ export default function RootLayout({
       >
         <QueryClientProvider client={queryClient}>
           <Toaster position="top-right" />
-          {children}
+          <Suspense fallback={<Spinner loading />}>{children}</Suspense>
         </QueryClientProvider>
       </body>
     </html>
