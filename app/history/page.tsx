@@ -24,7 +24,10 @@ export default function Page() {
 
           <div className="grid grid-cols-4 gap-6">
             {songSelections.map((songSelection) => (
-              <SongSelectionCard songSelection={songSelection} />
+              <SongSelectionCard
+                songSelection={songSelection}
+                key={songSelection.selectionDate.toString()}
+              />
             ))}
           </div>
         </div>

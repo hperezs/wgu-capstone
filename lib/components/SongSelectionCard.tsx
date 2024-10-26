@@ -23,7 +23,10 @@ export const SongSelectionCard: React.FC<SongSelectionCardProps> = ({
       <div>
         {orderSongSelectionItems(songSelection.selectionItems).map(
           (selectionItem) => (
-            <div className="my-3">
+            <div
+              className="my-3"
+              key={selectionItem.songNumber + selectionItem.songOrder}
+            >
               <div>{titleCaseString(selectionItem.songOrder)}</div>
               <div className="text-lg">
                 #{selectionItem.songNumber}{" "}

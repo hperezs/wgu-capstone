@@ -126,7 +126,7 @@ export const SongList: React.FC = () => {
       {sortBy === "number"
         ? songs.map((song) => renderSong(song))
         : Object.entries(groupedSongs).map(([letter, songs]) => (
-            <div className="">
+            <div key={letter}>
               <h2 className="text-xl font-bold border-y border-zinc-700 p-2 px-4">
                 {letter}
               </h2>

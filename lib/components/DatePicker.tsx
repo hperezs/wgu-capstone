@@ -1,8 +1,6 @@
 import { joinClasses } from "@/lib/helpers";
 import React from "react";
-import ReactDatePicker, {
-  ReactDatePickerCustomHeaderProps,
-} from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 import { format } from "date-fns";
 
 export interface DatePickerProps {

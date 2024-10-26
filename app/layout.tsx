@@ -1,13 +1,8 @@
 "use client";
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { useState } from "react";
-import {
-  HydrationBoundary,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "material-symbols";
 import "react-datepicker/dist/react-datepicker.css";
 import { Toaster } from "react-hot-toast";

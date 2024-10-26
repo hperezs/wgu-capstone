@@ -1,9 +1,8 @@
-import { getNextSunday } from "@/lib/helpers";
 import { getMongoClient } from "@/lib/mongodb/client";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET() {
   const mongodb_client = getMongoClient();
   try {
     await mongodb_client.connect();
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
 
     const record = await request.json();
 
-    const result = await collection.insertOne(record);
+    await collection.insertOne(record);
     return NextResponse.json({ message: "Song selection created." });
   } catch (e) {
     console.error(e);
@@ -52,7 +51,7 @@ export async function PUT(request: Request) {
 
     const record = await request.json();
 
-    const result = await collection.updateOne(
+    await collection.updateOne(
       { _id: new ObjectId(record._id) },
       {
         $set: {

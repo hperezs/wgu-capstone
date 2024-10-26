@@ -1,6 +1,5 @@
 import { getMongoClient } from "@/lib/mongodb/client";
-import { Song } from "@/lib/types/Song";
-import { MongoClient, ServerApiVersion, Sort } from "mongodb";
+import { Sort } from "mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -10,7 +9,6 @@ export async function GET(request: Request) {
 
     const database = mongodb_client.db("hymn-helper-db");
     const collection = database.collection("songs");
-    const options = { ordered: true };
 
     // Get search param from URL
     const url = new URL(request.url);

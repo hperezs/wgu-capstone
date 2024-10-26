@@ -2,14 +2,12 @@ import { Button } from "@/lib/components/Button";
 import { DatePicker } from "@/lib/components/DatePicker";
 import { Dropdown } from "@/lib/components/Dropdown";
 import { getNextSunday, joinClasses, titleCaseString } from "@/lib/helpers";
-import { songSelectionService } from "@/lib/services/songSelection.service";
 import { Song } from "@/lib/types/Song";
 import {
   SongOrderChoice,
   SongOrderOptions,
   SongSelection,
 } from "@/lib/types/SongSelection";
-import { useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useState } from "react";
 
@@ -115,7 +113,7 @@ export const SongRow: React.FC<SongRowProps> = ({
 
               <div className="space-y-1">
                 {relatedSelections?.map((selection) => (
-                  <div>
+                  <div key={selection.selectionDate.toString()}>
                     {format(new Date(selection.selectionDate), "MMM do, yyyy")}{" "}
                     -{" "}
                     {titleCaseString(

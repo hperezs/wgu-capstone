@@ -1,4 +1,8 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["@tanstack/eslint-plugin-query"]
+  "plugins": ["@tanstack/eslint-plugin-query"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "warn"
+  }
 }
