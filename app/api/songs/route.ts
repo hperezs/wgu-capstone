@@ -14,8 +14,13 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const search = url.searchParams.get("search");
     const sortBy = url.searchParams.get("sort");
+    const tag = url.searchParams.get("topic");
 
-    const query = search ? { title: { $regex: search, $options: "i" } } : {};
+    const tagQuery = tag ? { tags: { $in: [tag] } } : {};
+    const searchQuery = search
+      ? { title: { $regex: search, $options: "i" } }
+      : {};
+    const query = { ...tagQuery, ...searchQuery };
     const sort: Sort =
       sortBy === "alphabetical" ? { title: 1 } : { songNumber: 1 };
 

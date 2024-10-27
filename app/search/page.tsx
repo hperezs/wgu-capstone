@@ -12,7 +12,7 @@ export default function Page() {
         <div className="space-y-9">
           <SearchBar />
 
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end space-y-3">
             <SortOrderControl />
             <SongList />
           </div>

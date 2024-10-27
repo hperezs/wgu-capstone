@@ -1,6 +1,6 @@
 import { SongRow } from "@/lib/components/SongList/SongRow";
 import { Spinner } from "@/lib/components/Spinner";
-import { groupAlphabetically, sameDay } from "@/lib/helpers";
+import { sortSongsAlphabetically, sameDay } from "@/lib/helpers";
 import { useSongs } from "@/lib/hooks/useSongs";
 import { useSongSelections } from "@/lib/hooks/useSongSelections";
 import { songSelectionService } from "@/lib/services/songSelection.service";
@@ -16,14 +16,19 @@ export const SongList: React.FC = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") ?? "";
   const sortBy = (searchParams.get("sort") ?? "number") as SortBy;
+  const topic = searchParams.get("topic") ?? "";
   const debouncedSearch = useDebounce(search, 500);
 
   //  ** Data Fetching **
   const queryClient = useQueryClient();
   // Songs
-  const { data, isPending, isFetching } = useSongs(debouncedSearch, sortBy);
+  const { data, isPending, isFetching } = useSongs(
+    debouncedSearch,
+    sortBy,
+    topic
+  );
   const songs = data?.songs ?? [];
-  const groupedSongs = groupAlphabetically(songs);
+  const groupedSongs = sortSongsAlphabetically(songs);
   // Song Selections
   const { data: songSelectionsData, isFetching: isFetchingSongSelections } =
     useSongSelections();

@@ -5,11 +5,12 @@ export class SongService extends BaseService {
   async get(searchParams: {
     search: string;
     sortBy: string;
+    topic: string;
   }): Promise<{ songs: Song[] }> {
     try {
       const { search, sortBy } = searchParams;
       const response = await fetch(
-        `/api/songs?search=${search}&sort=${sortBy}`
+        `/api/songs?search=${search}&sort=${sortBy}&topic=${searchParams.topic}`
       );
 
       const data = await response.json();

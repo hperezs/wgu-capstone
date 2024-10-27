@@ -4,10 +4,12 @@ import ReactDatePicker from "react-datepicker";
 import { format } from "date-fns";
 
 export interface DatePickerProps {
-  value: Date;
+  value: Date | null;
   onChange: (date: Date | null) => void;
   id: string;
   label?: string;
+  placement?: "bottom" | "right";
+  error?: boolean;
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -15,6 +17,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   onChange,
   id,
   label,
+  placement = "bottom",
+  error = false,
 }) => {
   const formattedValue = value ? format(value, "MM/dd/yyyy") : undefined;
 
@@ -26,13 +30,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   const customInput = () => (
-    <div className="flex justify-center flex-col gap-1 min-h-[60px] text-zinc-300">
+    <div className="flex justify-center flex-col gap-1 min-h-[60px] text-neutral-300">
       <div
         onClick={toggleOpen}
         id="datepicker-input-wrapper"
         className={joinClasses(
           "flex items-center p-2 bg-zinc-900 border rounded border-zinc-600 focus:ring-emerald-900 focus:border-zinc-500 ",
-          open ? "ring ring-emerald-900 border-zinc-500" : ""
+          open ? "ring ring-emerald-900 border-zinc-500" : "",
+          error ? "border-red-800 " : ""
         )}
       >
         <span className="material-symbols-outlined text-xl text-secondary-500">
@@ -44,7 +49,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           value={formattedValue}
           placeholder={"Select Date"}
           className={
-            "no-calendar caret-transparent bg-transparent leading-4 placeholder:text-secondary-500 text-secondary-900 w-full border-none p-0 ml-2 focus:outline-none focus:border-none focus:ring-transparent"
+            "no-calendar caret-transparent bg-transparent leading-4 placeholder:text-neutral-400 text-secondary-900 w-full border-none p-0 ml-2 focus:outline-none focus:border-none focus:ring-transparent"
           }
           readOnly
         />
@@ -65,6 +70,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       customInput={customInput()}
       className="border-zinc-100 rounded focus:border-zinc-600 focus:outline-none focus:ring-emerald-900"
       filterDate={(date) => date.getDay() === 0}
+      popperPlacement={placement}
     />
   );
 };

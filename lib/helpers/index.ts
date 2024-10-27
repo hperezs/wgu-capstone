@@ -1,5 +1,9 @@
 import { Song } from "@/lib/types/Song";
-import { SongSelectionItem } from "@/lib/types/SongSelection";
+import {
+  SongOrderChoice,
+  SongSelection,
+  SongSelectionItem,
+} from "@/lib/types/SongSelection";
 
 export const joinClasses = (...classes: string[]): string => {
   return classes.join(" ");
@@ -22,7 +26,7 @@ export const debounce = <T extends (...args: any[]) => ReturnType<T>>(
 export const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-export const groupAlphabetically = (songs: Song[]) => {
+export const sortSongsAlphabetically = (songs: Song[]) => {
   return songs.reduce((acc, song) => {
     const firstLetter = song.title[0].toUpperCase();
     if (!acc[firstLetter]) {
@@ -31,6 +35,17 @@ export const groupAlphabetically = (songs: Song[]) => {
     acc[firstLetter].push(song);
     return acc;
   }, {} as Record<string, Song[]>);
+};
+
+export const groupAlphabetically = (strings: string[]) => {
+  return strings.reduce((acc, string) => {
+    const firstLetter = string[0].toUpperCase();
+    if (!acc[firstLetter]) {
+      acc[firstLetter] = [];
+    }
+    acc[firstLetter].push(string);
+    return acc;
+  }, {} as Record<string, string[]>);
 };
 
 export const getNextSunday = () => {
@@ -72,3 +87,53 @@ export const orderSongSelectionItems = (items: SongSelectionItem[]) => {
 
   return items.sort((a, b) => orderMap[a.songOrder] - orderMap[b.songOrder]);
 };
+
+export function songSelectionsToCSV(selections: SongSelection[]): string {
+  // If no selections, return empty string
+  if (!selections.length) {
+    return "";
+  }
+
+  // Create header row
+  const headers = [
+    "Selection Date",
+    "First Song",
+    "Second Song",
+    "Third Song",
+    "Fourth Song",
+  ];
+  const headerRow = headers.join(",");
+
+  // Process each selection into a row
+  const rows = selections.map((selection) => {
+    // Create an object to store songs by their order
+    const songsByOrder: Record<SongOrderChoice, string> = {
+      first: "",
+      second: "",
+      third: "",
+      fourth: "",
+    };
+
+    // Populate the songsByOrder object
+    selection.selectionItems.forEach((item) => {
+      songsByOrder[item.songOrder] = item.songNumber;
+    });
+
+    // Format the date
+    const formattedDate = selection.selectionDate.toISOString().split("T")[0];
+
+    // Create the row with values in the correct order
+    const rowValues = [
+      formattedDate,
+      songsByOrder.first,
+      songsByOrder.second,
+      songsByOrder.third,
+      songsByOrder.fourth,
+    ];
+
+    return rowValues.join(",");
+  });
+
+  // Combine header and data rows
+  return [headerRow, ...rows].join("\n");
+}

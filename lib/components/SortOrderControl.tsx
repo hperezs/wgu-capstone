@@ -21,7 +21,7 @@ export const SortOrderControl: React.FC = () => {
   const hoverClasses = "hover:border-emerald-400 hover:bg-zinc-700";
 
   return (
-    <div className="flex mb-3">
+    <div className="flex">
       <button
         onClick={() => handleSort("alphabetical")}
         className={joinClasses(baseClasses, hoverClasses, "rounded-l")}
