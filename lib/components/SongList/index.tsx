@@ -22,11 +22,7 @@ export const SongList: React.FC = () => {
   //  ** Data Fetching **
   const queryClient = useQueryClient();
   // Songs
-  const { data, isPending, isFetching } = useSongs(
-    debouncedSearch,
-    sortBy,
-    topic
-  );
+  const { data, isFetching } = useSongs(debouncedSearch, sortBy, topic);
   const songs = data?.songs ?? [];
   const groupedSongs = sortSongsAlphabetically(songs);
   // Song Selections

@@ -5,9 +5,7 @@ import { NavBar } from "@/lib/components/NavBar";
 import { SearchBar } from "@/lib/components/SearchBar";
 import { SongList } from "@/lib/components/SongList";
 import { SortOrderControl } from "@/lib/components/SortOrderControl";
-import { Spinner } from "@/lib/components/Spinner";
 import { TopicsList } from "@/lib/components/TopicsList";
-import { useSongSelections } from "@/lib/hooks/useSongSelections";
 import { useSearchParams, useRouter } from "next/navigation";
 
 export default function Page() {
