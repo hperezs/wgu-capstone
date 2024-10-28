@@ -6,6 +6,8 @@ import {
 } from "@/lib/types/SongSelection";
 
 export const joinClasses = (...classes: string[]): string => {
+  // Filter out empty strings
+  classes = classes.filter((cls) => cls.trim() !== "");
   return classes.join(" ");
 };
 
